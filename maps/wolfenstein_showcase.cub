@@ -1,0 +1,12 @@
+NO textures/wolfenstein/eagle.xpm
+SO textures/wolfenstein/red_brick.xpm
+WE textures/wolfenstein/purple_stone.xpm
+EA textures/wolfenstein/grey_stone.xpm
+F 40,40,40
+C 100,0,0
+
+11111111111
+10000000001
+100S0000001
+10000000001
+11111111111
