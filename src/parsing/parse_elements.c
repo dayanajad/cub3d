@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_elements.c                                :+:      :+:    :+:   */
+/*   parse_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbinti-m <dbinti-m@student.42kl.edu.my>     +#+  +:+       +#+        */
+/*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/08 10:00:00 by dbinti-m  #+#    #+#             */
-/*   Updated: 2026/06/23 10:00:00 by dbinti-m  ###   ########.fr       */
+/*   Created: 2026/05/19 10:00:00 by dbinti-m          #+#    #+#             */
+/*   Updated: 2026/06/10 15:28:55 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int is_space(char c) { return (c == ' ' || c == '\t'); }
+static int	is_space(char c)
+{
+	return (c == ' ' || c == '\t');
+}
 
-static int skip_spaces(char *s, int i)
+static int	skip_spaces(char *s, int i)
 {
 	while (s[i] && is_space(s[i]))
 		i++;
 	return (i);
 }
 
-int parse_elements(t_game *game, char *line)
+int	parse_elements(t_game *game, char *line)
 {
-	int i;
+	int	i;
+
 	i = skip_spaces(line, 0);
-	if (line[i] == '\0')
-		return (0);
 	if (line[i] == 'N' && line[i + 1] == 'O' && is_space(line[i + 2]))
 		return (parse_texture_line(&game->tex[TEX_N].path, line + i + 2));
 	if (line[i] == 'S' && line[i + 1] == 'O' && is_space(line[i + 2]))
@@ -42,9 +44,10 @@ int parse_elements(t_game *game, char *line)
 	return (1);
 }
 
-int parse_texture_line(char **path, char *line)
+int	parse_texture_line(char **path, char *line)
 {
-	char *trim;
+	char	*trim;
+
 	if (*path)
 		return (1);
 	trim = ft_strtrim(line, " \t");

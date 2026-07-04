@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                   :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbinti-m <dbinti-m@student.42kl.edu.my>     +#+  +:+       +#+        */
+/*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/08 10:00:00 by dbinti-m  #+#    #+#             */
-/*   Updated: 2026/06/23 10:00:00 by dbinti-m  ###   ########.fr       */
+/*   Created: 2026/05/19 10:00:00 by dbinti-m          #+#    #+#             */
+/*   Updated: 2026/06/10 15:30:06 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char *strip_newline(char *line)
+char	*strip_newline(char *line)
 {
-	size_t len;
+	size_t	len;
+
 	if (!line)
 		return (NULL);
 	len = ft_strlen(line);
@@ -26,30 +27,11 @@ char *strip_newline(char *line)
 	return (line);
 }
 
-int has_cub_ext(char *path)
+int	is_map_line(char *line)
 {
-	size_t len;
-	if (!path)
-		return (0);
-	len = ft_strlen(path);
-	if (len < 5)
-		return (0);
-	return (ft_strncmp(path + len - 4, ".cub", 4) == 0);
-}
+	int	i;
+	int	has_tile;
 
-int is_blank_line(char *line)
-{
-	int i;
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	return (line[i] == '\0');
-}
-
-int is_map_line(char *line)
-{
-	int i;
-	int has_tile;
 	i = 0;
 	has_tile = 0;
 	if (!line)
@@ -68,10 +50,11 @@ int is_map_line(char *line)
 	return (has_tile);
 }
 
-void save_map_row(char ***lines, int *count, char *line)
+void	map_store_line(char ***lines, int *count, char *line)
 {
-	char **new_lines;
-	int i;
+	char	**new_lines;
+	int		i;
+
 	new_lines = (char **)safe_malloc(sizeof(char *) * (*count + 1));
 	i = 0;
 	while (i < *count)
@@ -88,4 +71,26 @@ void save_map_row(char ***lines, int *count, char *line)
 	free(*lines);
 	*lines = new_lines;
 	(*count)++;
+}
+
+int	has_cub_ext(char *path)
+{
+	size_t	len;
+
+	if (!path)
+		return (0);
+	len = ft_strlen(path);
+	if (len < 5)
+		return (0);
+	return (ft_strncmp(path + len - 4, ".cub", 4) == 0);
+}
+
+int	is_blank_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (line[i] == '\0');
 }

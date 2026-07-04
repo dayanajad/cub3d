@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                     :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbinti-m <dbinti-m@student.42kl.edu.my>     +#+  +:+       +#+        */
+/*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/08 10:00:00 by dbinti-m  #+#    #+#             */
-/*   Updated: 2026/06/23 10:00:00 by dbinti-m  ###   ########.fr       */
+/*   Created: 2026/05/19 10:00:00 by dbinti-m          #+#    #+#             */
+/*   Updated: 2026/06/10 15:29:29 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int max_width(char **lines, int count)
+static int	max_width(char **lines, int count)
 {
-	int max_w;
-	int i;
-	int len;
-	max_w = 0;	i = 0;
+	int	max_w;
+	int	i;
+	int	len;
+
+	max_w = 0;
+	i = 0;
 	while (i < count)
 	{
 		len = (int)ft_strlen(lines[i]);
@@ -28,7 +30,7 @@ static int max_width(char **lines, int count)
 	return (max_w);
 }
 
-static int store_player(t_game *game, int x, int y, char dir)
+static int	store_player(t_game *game, int x, int y, char dir)
 {
 	if (game->map.player_dir != 0)
 		return (1);
@@ -38,9 +40,10 @@ static int store_player(t_game *game, int x, int y, char dir)
 	return (0);
 }
 
-static int pad_grid_row(t_game *game, char *line, int y, int w)
+static int	fill_row(t_game *game, char *line, int y, int w)
 {
-	int x;
+	int	x;
+
 	game->map.grid[y] = (char *)safe_malloc(w + 1);
 	ft_memset(game->map.grid[y], ' ', w);
 	game->map.grid[y][w] = '\0';
@@ -59,10 +62,11 @@ static int pad_grid_row(t_game *game, char *line, int y, int w)
 	return (0);
 }
 
-int map_build(t_game *game, char **lines, int count)
+int	map_build(t_game *game, char **lines, int count)
 {
-	int y;
-	int w;
+	int	y;
+	int	w;
+
 	w = max_width(lines, count);
 	game->map.width = w;
 	game->map.height = count;
@@ -71,7 +75,7 @@ int map_build(t_game *game, char **lines, int count)
 	y = 0;
 	while (y < count)
 	{
-		if (pad_grid_row(game, lines[y], y, w) != 0)
+		if (fill_row(game, lines[y], y, w) != 0)
 			return (1);
 		y++;
 	}
